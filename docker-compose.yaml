@@ -1,0 +1,18 @@
+---
+version: "3"
+services:
+  statping:
+    image: adamboutcher/statping-ng:latest
+    environment:
+      PORT: 8080
+      ADMIN_USER: localadmin
+      ADMIN_PASSWORD: supersecret
+      SAMPLE_DATA: false
+      API_SECRET: 4745ac0a5e8f6927cf98d4e3279fef3131dfd2156bb5ccc0d7610f07218652f3
+      DB_CONN: sqlite
+      NAME: Status Page
+      DESCRIPTION: A status page
+      DOMAIN: http://localhost:8080
+      USE_CDN: false
+    ports:
+      - 8080:8080

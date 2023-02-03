@@ -86,6 +86,7 @@ class Statping:
         response = self.session.get(f"{self.base_url}/api/services")
         if response.status_code == 200:
             return response.json()
+        logging.error(f"[List Service] Failed to list services: {response.status_code}[{response.text}]")
         return {}
 
     def service_update(self, service_id, service_body):
@@ -100,7 +101,7 @@ class Statping:
         for svc in services:
             if svc['name'] == name:
                 return True, svc['id']
-        return False, -1
+        return False, 0
 
     def _group_exists(self, name: str) -> Tuple[bool, int]:
         groups = self.group_list()
@@ -124,7 +125,7 @@ if __name__ == "__main__":
         print("Usage: provision.py file.yaml")
         exit(1)
 
-    with open('status.yaml', 'r') as f:
+    with open(input_file, 'r') as f:
         data = yaml.load(f, Loader=SafeLoader)
 
     for group in data:

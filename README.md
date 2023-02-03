@@ -12,14 +12,20 @@ The script accepts a path to YAML file. Here's an example of what it could look 
 ---
 - name: "Name of my group"
   entries:
+    # Minimum is name and domain, defaults to http check
     - name: "A host I want to add"
       domain: localhost
+    # Ping Example
     - name: "Some other host"
       domain: 127.0.0.1
       type: icmp
+    # Expect a specific http response code
+    - name: "Github Current User"
+      domain: "https://api.github.com/user"
+      expected_status: 401
 ```
 
-The example block defines a group called `Name of my group` with two hosts that would be created.
+The example block defines a group called `Name of my group` with three hosts that would be created.
 
 ## How do I run this?
 
@@ -28,14 +34,14 @@ The example block defines a group called `Name of my group` with two hosts that 
 
 ## Default values for service items
 
-Some values are defaulted to match what Statping expects:
+Some values are defaulted to match what Statping expects and can be overridden by providing them on a host
 
 |Key|Value|
 |--|--|
-|expected|""|
-|type|"http"|
-|method|"GET"|
-|post_data|""|
+|expected|`""`|
+|type|`"http"`|
+|method|`"GET"`|
+|post_data|`""`|
 |port|0|
 |expected_status|200|
 |check_interval|30|
